@@ -8,91 +8,51 @@ export default class TimeLine extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            flatListData : [{
-                key: 'a',
-                text: '444'
-            },{
-                key: 'b',
-                text: '333'
-            },{
-                key: 'c',
-                text: '2222'
-            },{
-                key: 'd',
-                text: '111'
-            },
-            {
-                key: 'e',
-                text: '444'
-            },{
-                key: 'f',
-                text: '333'
-            },{
-                key: 'g',
-                text: '2222'
-            },{
-                key: 'h',
-                text: '111'
-            },
-            {
-                key: 'l',
-                text: '444'
-            },{
-                key: 'm',
-                text: '333'
-            },{
-                key: 'n',
-                text: '2222'
-            },{
-                key: 'o',
-                text: '111'
-            },
-            {
-                key: 'aa',
-                text: '444'
-            },{
-                key: 'bb',
-                text: '333'
-            },{
-                key: 'sdc',
-                text: '2222'
-            },{
-                key: 'dsad',
-                text: '111'
-            },
-            {
-                key: 'ecx',
-                text: '444'
-            },{
-                key: 'fda',
-                text: '333'
-            },{
-                key: 'gdfas',
-                text: '2222'
-            },{
-                key: 'hasd',
-                text: '111'
-            },
-            {
-                key: 'lsdcasd',
-                text: '444'
-            },{
-                key: 'mdsa',
-                text: '333'
-            }
+            flatListData : [
+                {
+                    year: 2019,
+                    fold: true,
+                    stories: [
+                        {
+                            month: 1,
+                            day: 1,
+                            story: [
+                                {
+                                    content: 'hahahah',
+                                    comments: 6
+                                }
+                            ]
+                        },
+                        {
+                            month: 1,
+                            day: 2,
+                            story: [
+                                {
+                                    content: 'hahahah',
+                                    comments: 6
+                                },
+                                {
+                                    content: 'lalala',
+                                    comments: 6
+                                }
+                            ]
+                        }
+                    ]
+                        
+                }
             ]
         }
     }
     componentDidMount() {
     }
     renderRow=(rowData,index)=>{
-        return <RowItem />;
+        return <RowItem rowData={rowData}/>;
     }
     refresh=(callback)=>{
        window.setTimeout(()=>{
             console.log('-----------------------------------')
             this.setState({
-                flatListData: [...this.state.flatListData, {key: '1111', text: 'asddadasdas'}]
+                flatListData: [...this.state.flatListData]
             })
             callback(this.state.flatListData);
         }, 3000)
@@ -101,7 +61,7 @@ export default class TimeLine extends React.Component {
         window.setTimeout(()=>{
             console.log('-----------------------------------')
             this.setState({
-                flatListData: [...this.state.flatListData, {key: '1111', text: 'asddadasdas'}]
+                flatListData: [...this.state.flatListData]
             })
             callback(this.state.flatListData);
         }, 2000)
