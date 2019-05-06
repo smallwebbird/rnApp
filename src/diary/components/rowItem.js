@@ -7,8 +7,9 @@ export default class RowItem extends React.Component {
     pressStory = () => {
         console.log('我这个文章集被点击了');
     }
-    pressYear = () => {
-
+    pressYear = (e) => {
+        e.persist()
+        console.log(e)
     }
     render() {
         const { rowData } = this.props;
@@ -28,6 +29,7 @@ export default class RowItem extends React.Component {
                         </View>
                     </View>
                 </TouchableNativeFeedback>
+                <View style={Styles.monthWrap}>
                 {
                     rowData.stories.map( (item1) => (
                         <View style={Styles.monthStyle}>
@@ -35,8 +37,8 @@ export default class RowItem extends React.Component {
                             item1.story.map( (item2, index) => (
                                 <View style={Styles.everyMonth}>
                                     <View style={Styles.monthText}>
-                                        <Text style={{fontWeight: 'bold'}}>{index===0 ? item1.month : ''}</Text>
-                                        <Text>{index===0 ? item1.day : ''}</Text>
+                                        <Text style={{fontWeight: 'bold'}}>{index===0 ? item1.day : ''}</Text>
+                                        <Text>{index===0 ? item1.month+'月' : ''}</Text>
                                     </View>
                                     <View style={Styles.storyIcon}>
                                         <Image 
@@ -68,6 +70,7 @@ export default class RowItem extends React.Component {
                         </View>
                     ) )
                 }
+                </View>
             </View>
         )
     }
@@ -105,6 +108,8 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
+    },
+    monthWrap: {
     },
     monthStyle: {
         paddingLeft: 20,

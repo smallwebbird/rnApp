@@ -14,7 +14,7 @@ export default class TimeLine extends React.Component {
                     fold: true,
                     stories: [
                         {
-                            month: 1,
+                            month: '一',
                             day: 1,
                             story: [
                                 {
@@ -24,7 +24,7 @@ export default class TimeLine extends React.Component {
                             ]
                         },
                         {
-                            month: 1,
+                            month: '一',
                             day: 2,
                             story: [
                                 {
@@ -57,15 +57,15 @@ export default class TimeLine extends React.Component {
             callback(this.state.flatListData);
         }, 3000)
     }
-    loadMore=(callback)=>{
-        window.setTimeout(()=>{
-            console.log('-----------------------------------')
-            this.setState({
-                flatListData: [...this.state.flatListData]
-            })
-            callback(this.state.flatListData);
-        }, 2000)
-    }
+    // loadMore=(callback)=>{
+    //     window.setTimeout(()=>{
+    //         console.log('-----------------------------------')
+    //         this.setState({
+    //             flatListData: [...this.state.flatListData]
+    //         })
+    //         callback(this.state.flatListData);
+    //     }, 2000)
+    // }
     renderRefreshView=(pullState)=>{
         switch (pullState){
             case 'pullOk':
@@ -136,11 +136,12 @@ export default class TimeLine extends React.Component {
                             renderRow={this.renderRow} 
                             pageLen={20} 
                             refresh={this.refresh} 
-                            loadMore={this.loadMore}
-                            renderLoadMore={this.renderLoadMore}
+                            //loadMore={this.loadMore}
+                            //renderLoadMore={this.renderLoadMore}
                             renderRefreshView={this.renderRefreshView}
                             // renderNoMore={this.renderNoMore}
                             refreshEnable={true}
+                            renderRefreshViewH={0}
                         />
         </View>
         )
@@ -174,21 +175,23 @@ const Styles = StyleSheet.create({
         top: 12,
     },
     pullOk: {
-        marginTop: 60,
+
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'blue'
     },
     pullRelease: {
-        marginTop: 60,
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'yellow'
     },
-    pulling: {
-        marginTop: 60,     
+    pulling: { 
+        height: 40,  
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'yellow'
     },
     emptyData: {
     },
