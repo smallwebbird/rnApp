@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Image, SectionList, Text, ImageBackground} from 'react-native';
+import { View, StyleSheet, TextInput, Image, Text, ImageBackground} from 'react-native';
 import DeviceSize from '../../lib/deviceSize.js';
 import RowItem from '../components/rowItem.js';
 import PageListView from 'react-native-page-listview';
@@ -34,6 +34,30 @@ export default class TimeLine extends React.Component {
                                 {
                                     content: 'lalala',
                                     comments: 6
+                                },
+                                {
+                                    content: 'lalala',
+                                    comments: 6
+                                },
+                                {
+                                    content: 'lalala',
+                                    comments: 6
+                                },
+                                {
+                                    content: 'lalala',
+                                    comments: 6
+                                },
+                                {
+                                    content: 'lalala',
+                                    comments: 6
+                                },
+                                {
+                                    content: 'lalala',
+                                    comments: 6
+                                },
+                                {
+                                    content: 'lalala',
+                                    comments: 6
                                 }
                             ]
                         }
@@ -57,15 +81,15 @@ export default class TimeLine extends React.Component {
             callback(this.state.flatListData);
         }, 3000)
     }
-    // loadMore=(callback)=>{
-    //     window.setTimeout(()=>{
-    //         console.log('-----------------------------------')
-    //         this.setState({
-    //             flatListData: [...this.state.flatListData]
-    //         })
-    //         callback(this.state.flatListData);
-    //     }, 2000)
-    // }
+    loadMore=(callback)=>{
+        window.setTimeout(()=>{
+            console.log('-----------------------------------')
+            this.setState({
+                flatListData: [...this.state.flatListData]
+            })
+            callback(this.state.flatListData);
+        }, 2000)
+    }
     renderRefreshView=(pullState)=>{
         switch (pullState){
             case 'pullOk':
@@ -131,18 +155,16 @@ export default class TimeLine extends React.Component {
                         caretHidden={true}  
                         />
                     <Image source={require('../images/time_line_search.png')} style={Styles.searchImage}/>    
-                </View>
+                </View> 
                         <PageListView 
                             renderRow={this.renderRow} 
                             pageLen={20} 
                             refresh={this.refresh} 
-                            //loadMore={this.loadMore}
-                            //renderLoadMore={this.renderLoadMore}
+                            renderLoadMore={this.renderLoadMore}
                             renderRefreshView={this.renderRefreshView}
-                            // renderNoMore={this.renderNoMore}
-                            refreshEnable={true}
-                            renderRefreshViewH={0}
-                        />
+                            renderRefreshViewH={40}
+                            allLen={10}
+                        />     
         </View>
         )
     }
@@ -175,23 +197,22 @@ const Styles = StyleSheet.create({
         top: 12,
     },
     pullOk: {
-
+        marginTop: 40,
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'blue'
     },
     pullRelease: {
+        marginTop: 40,
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'yellow'
     },
     pulling: { 
+        marginTop: 40,
         height: 40,  
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'yellow'
     },
     emptyData: {
     },

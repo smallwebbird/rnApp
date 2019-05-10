@@ -4,12 +4,19 @@ import { BoxShadow } from 'react-native-shadow';
 import DeviseSize from '../../lib/deviceSize.js';
 
 export default class RowItem extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     pressStory = () => {
         console.log('我这个文章集被点击了');
     }
     pressYear = (e) => {
-        e.persist()
-        console.log(e)
+        console.log(this.ref);
+        this._monthRef.setNativeProps({
+            style: {
+                display: 'none',
+            }
+        });
     }
     render() {
         const { rowData } = this.props;
@@ -29,16 +36,16 @@ export default class RowItem extends React.Component {
                         </View>
                     </View>
                 </TouchableNativeFeedback>
-                <View style={Styles.monthWrap}>
+                <View style={Styles.monthWrap} ref={component => this._monthRef = component}>
                 {
-                    rowData.stories.map( (item1) => (
-                        <View style={Styles.monthStyle}>
+                    rowData.stories.map( (item1, index1) => (
+                        <View style={Styles.monthStyle} key={index1}>
                         {
-                            item1.story.map( (item2, index) => (
-                                <View style={Styles.everyMonth}>
+                            item1.story.map( (item2, index2) => (
+                                <View style={Styles.everyMonth} key={index2}>
                                     <View style={Styles.monthText}>
-                                        <Text style={{fontWeight: 'bold'}}>{index===0 ? item1.day : ''}</Text>
-                                        <Text>{index===0 ? item1.month+'月' : ''}</Text>
+                                        <Text style={{fontWeight: 'bold'}}>{index2===0 ? item1.day : ''}</Text>
+                                        <Text>{index2===0 ? item1.month+'月' : ''}</Text>
                                     </View>
                                     <View style={Styles.storyIcon}>
                                         <Image 
