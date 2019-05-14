@@ -12,7 +12,7 @@ export default class DiaryTab extends React.Component{
         return (
             <View style={Styles.container}>
                 <StatusBar
-                    backgroundColor='black'
+                    backgroundColor="black"
                     translucent={true}
                     animated={true}
                 />
@@ -22,7 +22,7 @@ export default class DiaryTab extends React.Component{
                     locked={false}//表示手指是否能拖动视图  默认false  true则不能拖动,只可点击
                     renderTabBar={() => <DiaryHeader statusHeight={StatusBar.currentHeight} />}
                 >
-                    <TimeLine tabLabel="时间轴" />
+                    <TimeLine tabLabel="时间轴" router={this.props.navigation}/>
                     <Story tabLabel="故事集" />
                 </ScrollableTabView>
             </View>

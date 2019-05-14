@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Image, Text, ImageBackground} from 'react-native';
+import { View, StyleSheet, TextInput, Image, Text, ImageBackground, TouchableNativeFeedback} from 'react-native';
 import DeviceSize from '../../lib/deviceSize.js';
 import RowItem from '../components/rowItem.js';
 import PageListView from 'react-native-page-listview';
@@ -68,9 +68,14 @@ export default class TimeLine extends React.Component {
         }
     }
     componentDidMount() {
+        console.log('---------------------',this.props)
     }
     renderRow=(rowData,index)=>{
         return <RowItem rowData={rowData}/>;
+    }
+    inputPress = () => {
+       const { router } = this.props;
+       router.navigate('Search');
     }
     refresh=(callback)=>{
        window.setTimeout(()=>{
@@ -149,11 +154,13 @@ export default class TimeLine extends React.Component {
         return (
             <View tabLabel={tabLabel} style={Styles.container}>
                 <View style={Styles.inputWrap}>
-                    <TextInput 
-                        style={Styles.inputStyle} 
-                        placeholder="搜索标题，内容，时间，人物，位置"  
-                        caretHidden={true}  
-                        />
+                    <TouchableNativeFeedback
+                        onPress={this.inputPress}
+                    >
+                        <View style={Styles.inputStyle}>
+                            <Text>搜索标题，内容，时间，人物，位置</Text>
+                        </View>
+                    </TouchableNativeFeedback>
                     <Image source={require('../images/time_line_search.png')} style={Styles.searchImage}/>    
                 </View> 
                         <PageListView 
@@ -176,18 +183,18 @@ const Styles = StyleSheet.create({
         backgroundColor: '#E5E7E9'
     },
     inputWrap: {
-        padding: 5,
         width: DeviceSize.deviceW,
         position: 'absolute',
-        backgroundColor: '#E5E7E9'
+        height: 40,
+        backgroundColor: '#E5E7E9',
+        padding: 5,
     },
     inputStyle: {
-        height: 30,
+        flex: 1,
         backgroundColor: 'white',
         borderRadius: 20,
-        paddingVertical: 0,
-        textAlign: 'center'
-        // 使用以上俩个属性能够使input内的文字垂直居中
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     searchImage: {
         position: 'absolute',

@@ -8,6 +8,7 @@ import CommunityTab from './src/community/index.js';
 import TabIcon from './src/widget/tabIcon/index.js';
 import Color from './src/widget/color.js';
 import TabBar from './src/widget/tabBar/index.js';
+import Search from './src/diary/components/search/index.js';
 
 const TabNavigator = createBottomTabNavigator({
   DiaryTab: { 
@@ -83,6 +84,9 @@ const Nav = createStackNavigator(
   {
     Tab:{
       screen: TabNavigator,
+    },
+    Search: {
+      screen: Search
     }
   },  
   {

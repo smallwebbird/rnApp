@@ -6,36 +6,64 @@ import DeviseSize from '../../lib/deviceSize.js';
 export default class RowItem extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isfold: false //是否折叠
+        }
     }
     pressStory = () => {
         console.log('我这个文章集被点击了');
     }
     pressYear = (e) => {
         console.log(this.ref);
+        let { isfold } = this.state;
+        let display = isfold ? 'flex' : 'none';
         this._monthRef.setNativeProps({
             style: {
-                display: 'none',
+                display: display,
             }
+        });
+        this.setState({
+            isfold: !this.state.isfold
         });
     }
     render() {
         const { rowData } = this.props;
+        const { isfold } = this.state;
         return (
             <View style={Styles.container}>
+                {
+                    isfold ? 
                 <TouchableNativeFeedback
                     onPress={this.pressYear}
                 >
-                    <View style={Styles.yearStyle}>
-                        <View style={Styles.yearLeft}>
-                            <Image source={require('../images/year_right.png')} style={{width: 5, height: 5, marginLeft: 20}}/>
-                            <Text style={{paddingLeft: 10, fontSize: 15}}>{rowData.year}</Text>
+                        <View style={Styles.yearStyle}>
+                            <View style={Styles.yearLeft}>
+                                <Image source={require('../images/year_right.png')} style={{width: 5, height: 5, marginLeft: 20}}/>
+                                <Text style={{paddingLeft: 10, fontSize: 15}}>{rowData.year}</Text>
+                            </View>
+                            <View style={Styles.yearRight}>
+                                <Text style={{color: '#00FFFF', fontSize: 12, paddingRight: 15}}>打开该年</Text>
+                                <Image source={require('../images/expansion_arrow.png')} style={{width: 10, height: 10, marginRight: 10}}/>
+                            </View>
                         </View>
-                        <View style={Styles.yearRight}>
-                            <Text style={{color: '#00FFFF', fontSize: 12, paddingRight: 15}}>打开该年</Text>
-                            <Image source={require('../images/expansion_arrow.png')} style={{width: 10, height: 10, marginRight: 10}}/>
-                        </View>
-                    </View>
-                </TouchableNativeFeedback>
+                </TouchableNativeFeedback> : 
+                <BoxShadow setting={notFoldYearShadown}>
+                        <TouchableNativeFeedback
+                            onPress={this.pressYear}
+                        >
+                            <View style={Styles.yearNotFoldStyle}>
+                                <View style={Styles.yearLeft}>
+                                    <Image source={require('../images/year_right.png')} style={{width: 5, height: 5, marginLeft: 20}}/>
+                                    <Text style={{paddingLeft: 10, fontSize: 15}}>{rowData.year}</Text>
+                                </View>
+                                <View style={Styles.yearRight}>
+                                    <Text style={{color: '#00FFFF', fontSize: 12, paddingRight: 15}}>折叠该年</Text>
+                                    <Image source={require('../images/fold_arrow.png')} style={{width: 10, height: 10, marginRight: 10}}/>
+                                </View>
+                            </View>
+                        </TouchableNativeFeedback>   
+                </BoxShadow>
+                }
                 <View style={Styles.monthWrap} ref={component => this._monthRef = component}>
                 {
                     rowData.stories.map( (item1, index1) => (
@@ -92,6 +120,14 @@ const shadownStyle = {
     radius: 5,
     y: 2
 }
+const notFoldYearShadown = {
+        width: DeviseSize.deviceW,
+        height: 30,
+        color: '#808080',
+        border: 2,
+        opacity: 0.3,
+        y: 2
+}
 
 const Styles = StyleSheet.create({
     container: {
@@ -104,6 +140,14 @@ const Styles = StyleSheet.create({
         height: 30,
         flexDirection: 'row',
         backgroundColor: 'white'
+    },
+    yearNotFoldStyle: {
+        width: DeviseSize.deviceW,
+        height: 30,
+        flexDirection: 'row',
+        paddingLeft: 50,
+        paddingRight: 50,
+        backgroundColor: '#E5E7E9'
     },
     yearLeft: {
         flex: 1,
