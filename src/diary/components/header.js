@@ -35,7 +35,7 @@ export default class Header extends React.Component {
     render(){
         const { activeTab, statusHeight, goToPage } = this.props;
         return (
-            <View style={{...Styles.container, paddingTop: statusHeight}}>
+            <View style={{...Styles.container, marginTop: statusHeight}}>
                 <View style={Styles.calendarWrap}>
                     { activeTab===0 ? <Image style={Styles.calendarIcon} source={require('../images/calendar_chooser.png')} /> : null}
                 </View>
@@ -70,7 +70,7 @@ export default class Header extends React.Component {
 const Styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        height: 80,
+        height: 60,
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomWidth: 1,

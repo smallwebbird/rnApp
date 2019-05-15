@@ -118,7 +118,6 @@ export default class Story extends React.Component {
                     ref={ref => (this._list = ref)}
                     style={Styles.list}
                     data={stories}
-                    initialContentOffset={{x:0, y:3000}}
                     heightForIndexPath={ () => 150 }
                     refreshHeader={LoadingHeader}
                     onRefresh={this._pullRefresh}

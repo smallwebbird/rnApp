@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Image, Text, ImageBackground, TouchableNativeFeedback} from 'react-native';
+import { View, StyleSheet, TextInput, Image, Text, ImageBackground, TouchableNativeFeedback, StatusBar} from 'react-native';
 import DeviceSize from '../../lib/deviceSize.js';
-import RowItem from '../components/rowItem.js';
-import PageListView from 'react-native-page-listview';
+import { LargeList } from 'react-native-largelist-v3';
+import RowItem from './rowItem';
 
 export default class TimeLine extends React.Component {
     constructor(props) {
@@ -12,8 +12,8 @@ export default class TimeLine extends React.Component {
                 {
                     year: 2019,
                     fold: true,
-                    stories: [
-                        {
+                    items: [
+                        [{
                             month: '一',
                             day: 1,
                             story: [
@@ -60,7 +60,7 @@ export default class TimeLine extends React.Component {
                                     comments: 6
                                 }
                             ]
-                        }
+                        }]
                     ]
                         
                 }
@@ -68,89 +68,16 @@ export default class TimeLine extends React.Component {
         }
     }
     componentDidMount() {
-        console.log('---------------------',this.props)
-    }
-    renderRow=(rowData,index)=>{
-        return <RowItem rowData={rowData}/>;
+        console.log('---------------------',this.props);
+        console.log(StatusBar.currentHeight)
     }
     inputPress = () => {
        const { router } = this.props;
        router.navigate('Search');
     }
-    refresh=(callback)=>{
-       window.setTimeout(()=>{
-            console.log('-----------------------------------')
-            this.setState({
-                flatListData: [...this.state.flatListData]
-            })
-            callback(this.state.flatListData);
-        }, 3000)
-    }
-    loadMore=(callback)=>{
-        window.setTimeout(()=>{
-            console.log('-----------------------------------')
-            this.setState({
-                flatListData: [...this.state.flatListData]
-            })
-            callback(this.state.flatListData);
-        }, 2000)
-    }
-    renderRefreshView=(pullState)=>{
-        switch (pullState){
-            case 'pullOk':
-                return <View style={Styles.pullOk}>
-					<View style={Styles.ingWrap}>
-                        <View style={Styles.freshImg}>
-                            <Image source={require('../images/up.png')} style={{width: 20, height: 30, resizeMode: 'cover'}}/>
-                        </View>
-                        <View style={Styles.freshFont}>
-                            <Text style={Styles.tipFont}>释放立即同步</Text>
-                            <Text style={Styles.lastTipFont}>上次同步：04-28 22:45:00</Text>
-                        </View>
-                    </View>
-                </View>;
-                break;
-            case 'pullRelease':
-                return <View style={Styles.pullRelease}>
-                    <View style={Styles.ingReleaseWrap}>
-                        <Text>同步成功</Text>
-                    </View>
-                </View>;
-                break;
-            case '':
-            case 'pulling':
-            default:
-                return <View style={Styles.pulling}>
-					<View style={Styles.ingWrap}>
-                        <View style={Styles.freshImg}>
-                            <Image source={require('../images/down.png')} style={{width: 20, height: 30, resizeMode: 'cover'}}/>
-                        </View>
-                        <View style={Styles.freshFont}>
-                            <Text style={Styles.tipFont}>下拉即可同步</Text>
-                            <Text style={Styles.lastTipFont}>上次同步：04-28 22:45:00</Text>
-                        </View>
-                    </View>
-                </View>;
-                break;
-        }
-    };
-    renderLoadMore=()=>{
-        return(
-            <View style={{}}><Text>上啦加载哈哈哈</Text></View>
-        );
-    };
-    renderNoMore=()=>{
-            return(
-                <View style={{}}><Text>没有更多数据了哈哈哈</Text></View>
-            );
-        };
-    renderEmpty=()=>{return(
-        <ImageBackground source={require('../images/time_empty.png')} style={Styles.emptyBack}>
-            <View style={Styles.emptyData}>
-            </View>
-        </ImageBackground>);}
     render() {
         const { tabLabel } = this.props;
+        console.log('22323232323',RowItem)
         return (
             <View tabLabel={tabLabel} style={Styles.container}>
                 <View style={Styles.inputWrap}>
@@ -163,15 +90,16 @@ export default class TimeLine extends React.Component {
                     </TouchableNativeFeedback>
                     <Image source={require('../images/time_line_search.png')} style={Styles.searchImage}/>    
                 </View> 
-                        <PageListView 
-                            renderRow={this.renderRow} 
-                            pageLen={20} 
-                            refresh={this.refresh} 
-                            renderLoadMore={this.renderLoadMore}
-                            renderRefreshView={this.renderRefreshView}
-                            renderRefreshViewH={40}
-                            allLen={10}
-                        />     
+                <View style={Styles.list}>
+                    <LargeList 
+                        style={{flex: 1}}
+                        data={this.state.flatListData}
+                        renderSection={() => null}
+                        heightForIndexPath={() => 100}
+                        renderSection={ (section) => null }
+                        renderIndexPath={({section, row}) => <RowItem story={this.state.flatListData[section]}/>}
+                    />
+                </View>
         </View>
         )
     }
@@ -203,56 +131,10 @@ const Styles = StyleSheet.create({
         right: 15,
         top: 12,
     },
-    pullOk: {
-        marginTop: 40,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    pullRelease: {
-        marginTop: 40,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    pulling: { 
-        marginTop: 40,
-        height: 40,  
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    emptyData: {
-    },
-    emptyBack: {
-        flex: 1,
-        resizeMode: 'center'
-    },
-    ingWrap: {
-        height: 40,
-        width: 200,
-        flexDirection: 'row',
-    },
-    ingReleaseWrap: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    freshImg: {
-        flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-    },
-    freshFont: {
-        flex: 3,
-    },
-    tipFont: {
-        flex: 1,
-        lineHeight: 20,
-        textAlign: 'center'
-    },
-    lastTipFont: {
-        flex: 1,
-        fontSize: 10,
-        lineHeight: 20,
-        textAlign: 'center'
+    list: {
+        width: DeviceSize.deviceW,
+        height: DeviceSize.deviceH - 155 - StatusBar.currentHeight,
+        marginTop: 45,
+        backgroundColor: 'red'
     }
 });

@@ -1,37 +1,4 @@
-import React from 'react';
-import { View, StyleSheet, Image, Text, TouchableNativeFeedback } from 'react-native';
-import { BoxShadow } from 'react-native-shadow';
-import DeviseSize from '../../lib/deviceSize.js';
-
-export default class RowItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isfold: false //是否折叠
-        }
-    }
-    pressStory = () => {
-        console.log('我这个文章集被点击了');
-    }
-    pressYear = (e) => {
-        console.log(this.ref);
-        let { isfold } = this.state;
-        let display = isfold ? 'flex' : 'none';
-        this._monthRef.setNativeProps({
-            style: {
-                display: display,
-            }
-        });
-        this.setState({
-            isfold: !this.state.isfold
-        });
-    }
-    render() {
-        const { story } = this.props;
-        const { isfold } = this.state;
-        return (
-            <View style={Styles.container}>
-                {
+               {/* {
                     isfold ? 
                 <TouchableNativeFeedback
                     onPress={this.pressYear}
@@ -39,7 +6,7 @@ export default class RowItem extends React.Component {
                         <View style={Styles.yearStyle}>
                             <View style={Styles.yearLeft}>
                                 <Image source={require('../images/year_right.png')} style={{width: 5, height: 5, marginLeft: 20}}/>
-                                <Text style={{paddingLeft: 10, fontSize: 15}}>{story.year}</Text>
+                                <Text style={{paddingLeft: 10, fontSize: 15}}>{rowData.year}</Text>
                             </View>
                             <View style={Styles.yearRight}>
                                 <Text style={{color: '#00FFFF', fontSize: 12, paddingRight: 15}}>打开该年</Text>
@@ -54,7 +21,7 @@ export default class RowItem extends React.Component {
                             <View style={Styles.yearNotFoldStyle}>
                                 <View style={Styles.yearLeft}>
                                     <Image source={require('../images/year_right.png')} style={{width: 5, height: 5, marginLeft: 20}}/>
-                                    <Text style={{paddingLeft: 10, fontSize: 15}}>{story.year}</Text>
+                                    <Text style={{paddingLeft: 10, fontSize: 15}}>{rowData.year}</Text>
                                 </View>
                                 <View style={Styles.yearRight}>
                                     <Text style={{color: '#00FFFF', fontSize: 12, paddingRight: 15}}>折叠该年</Text>
@@ -66,7 +33,7 @@ export default class RowItem extends React.Component {
                 }
                 <View style={Styles.monthWrap} ref={component => this._monthRef = component}>
                 {
-                    story.items[0].map( (item1, index1) => (
+                    rowData.stories.map( (item1, index1) => (
                         <View style={Styles.monthStyle} key={index1}>
                         {
                             item1.story.map( (item2, index2) => (
@@ -105,105 +72,146 @@ export default class RowItem extends React.Component {
                         </View>
                     ) )
                 }
-                </View>
-            </View>
-        )
-    }
-}
+                </View> */}
 
-const shadownStyle = {
-    width: DeviseSize.deviceW - 120,
-    height: 60,
-    color: '#808080',
-    border: 2,
-    opacity: 0.3,
-    radius: 5,
-    y: 2
-}
-const notFoldYearShadown = {
-        width: DeviseSize.deviceW,
-        height: 30,
-        color: '#808080',
-        border: 2,
-        opacity: 0.3,
-        y: 2
-}
 
-const Styles = StyleSheet.create({
-    container: {
-        marginTop: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 1000
-    },
-    yearStyle: {
-        width: DeviseSize.deviceW - 100,
-        height: 30,
-        flexDirection: 'row',
-        backgroundColor: 'white'
-    },
-    yearNotFoldStyle: {
-        width: DeviseSize.deviceW,
-        height: 30,
-        flexDirection: 'row',
-        paddingLeft: 50,
-        paddingRight: 50,
-        backgroundColor: '#E5E7E9'
-    },
-    yearLeft: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    yearRight: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
-    monthWrap: {
-    },
-    monthStyle: {
-        paddingLeft: 20,
-        paddingRight: 20,
-        width: DeviseSize.deviceW,
-    },
-    everyMonth: {
-        flex: 1,
-        flexDirection: 'row'
-    },
-    monthText: {
-        width: 30,
-        alignItems: 'flex-end',
-        paddingTop: 6,
-    },
-    storyIcon: {
-        width: 40,
-        paddingLeft: 12,
-        paddingTop: 10
-    },
-    storyContent: {
-        flex: 7,
-        paddingLeft: 10,
-        paddingTop: 10
-    },
-    story: {
-        width: DeviseSize.deviceW - 120,
-        height: 60,
-        backgroundColor: 'white',
-        borderRadius: 5,
-        borderWidth: DeviseSize.onePixel,
-        borderColor: 'silver',
-        shadowColor: 'gray',
-        position: 'relative',
-    },
-    comment: {
-        position: 'absolute',
-        right: 8,
-        bottom: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        width:30,
-        height: 20,
-    }
-});
+                // import React from 'react';
+// import { View, StyleSheet, Image, Text, TouchableNativeFeedback } from 'react-native';
+// import { BoxShadow } from 'react-native-shadow';
+// import DeviseSize from '../../lib/deviceSize.js';
+
+// export default class RowItem extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             isfold: false //是否折叠
+//         }
+//     }
+//     pressStory = () => {
+//         console.log('我这个文章集被点击了');
+//     }
+//     pressYear = (e) => {
+//         console.log(this.ref);
+//         let { isfold } = this.state;
+//         let display = isfold ? 'flex' : 'none';
+//         this._monthRef.setNativeProps({
+//             style: {
+//                 display: display,
+//             }
+//         });
+//         this.setState({
+//             isfold: !this.state.isfold
+//         });
+//     }
+//     render() {
+//         const { section, items } = this.props;
+//         console.log(section, items)
+//         const { isfold } = this.state;
+//         return (
+//             <View style={StyleSheet.flatten([this.props.style,Styles.container1])}>
+//                 <Text>哈哈哈</Text>
+//             </View>
+//         )
+//     }
+// }
+
+// const shadownStyle = {
+//     width: DeviseSize.deviceW - 120,
+//     height: 60,
+//     color: '#808080',
+//     border: 2,
+//     opacity: 0.3,
+//     radius: 5,
+//     y: 2
+// }
+// const notFoldYearShadown = {
+//         width: DeviseSize.deviceW,
+//         height: 30,
+//         color: '#808080',
+//         border: 2,
+//         opacity: 0.3,
+//         y: 2
+// }
+
+// const Styles = StyleSheet.create({
+//     container: {
+//         marginTop: 5,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     },
+//     container1: {
+//         width: DeviseSize.deviceW,
+//         height: 100,
+//         backgroundColor: 'yellow'
+//     },
+//     yearStyle: {
+//         width: DeviseSize.deviceW - 100,
+//         height: 30,
+//         flexDirection: 'row',
+//         backgroundColor: 'white'
+//     },
+//     yearNotFoldStyle: {
+//         width: DeviseSize.deviceW,
+//         height: 30,
+//         flexDirection: 'row',
+//         paddingLeft: 50,
+//         paddingRight: 50,
+//         backgroundColor: '#E5E7E9'
+//     },
+//     yearLeft: {
+//         flex: 1,
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//     },
+//     yearRight: {
+//         flex: 1,
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         justifyContent: 'flex-end',
+//     },
+//     monthWrap: {
+//     },
+//     monthStyle: {
+//         paddingLeft: 20,
+//         paddingRight: 20,
+//         width: DeviseSize.deviceW,
+//     },
+//     everyMonth: {
+//         flex: 1,
+//         flexDirection: 'row'
+//     },
+//     monthText: {
+//         width: 30,
+//         alignItems: 'flex-end',
+//         paddingTop: 6,
+//     },
+//     storyIcon: {
+//         width: 40,
+//         paddingLeft: 12,
+//         paddingTop: 10
+//     },
+//     storyContent: {
+//         flex: 7,
+//         paddingLeft: 10,
+//         paddingTop: 10
+//     },
+//     story: {
+//         width: DeviseSize.deviceW - 120,
+//         height: 60,
+//         backgroundColor: 'white',
+//         borderRadius: 5,
+//         borderWidth: DeviseSize.onePixel,
+//         borderColor: 'silver',
+//         shadowColor: 'gray',
+//         position: 'relative',
+//     },
+//     comment: {
+//         position: 'absolute',
+//         right: 8,
+//         bottom: 10,
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         width:30,
+//         height: 20,
+//     }
+// });
